@@ -1,5 +1,10 @@
-type Props = {};
+import ResumeForm from "./ResumeForm";
 
-export default function EditResume({}: Props) {
-  return <div>EditResume</div>;
+export default function EditResume() {
+  return (
+    <>
+      <ResumeForm />
+      <div className="w-1/2"></div>
+    </>
+  );
 }

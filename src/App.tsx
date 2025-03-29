@@ -4,7 +4,7 @@ import Navbar from "./components/nav/Navbar";
 function App() {
   return (
     <>
-      <header>
+      <header className="mb-8">
         <Navbar />
       </header>
       <main className="px-4">
