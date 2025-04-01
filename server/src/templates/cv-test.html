@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV de Naïmoudine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold text-blue-600">{{firstname}} {{lastname}}</h1>
+        <p class="text-gray-700"><strong>Email:</strong> {{email}}</p>
+        <p class="text-gray-700"><strong>Téléphone:</strong> {{phone}}</p>
+
+        {{#if expreriences.length}}
+        <div class="mt-4">
+            <h2 class="text-xl font-semibold text-gray-800">Expérience professionnelle</h2>
+           <div class="border-l-4 border-blue-500 pl-4 mt-2">
+            {{#each experiences}}
+                <div class="mb-4">
+                    <h3 class="text-lg font-semibold">{{job}} - {{company}}</h3>
+                    <p class="text-sm text-gray-600">{{debutDate}} - {{endDate}}</p>
+                    <p class="text-gray-700">{{description}}</p>
+                </div>
+            {{/each}}
+            </div>
+        </div>
+        {{/if}}
+
+        {{#if educations.length}}
+        <div class="mt-4">
+            <h2 class="text-xl font-semibold text-gray-800">Expérience professionnelle</h2>
+           <div class="border-l-4 border-blue-500 pl-4 mt-2">
+            {{#each educations}}
+                <div class="mb-4">
+                    <h3 class="text-lg font-semibold">{{title}} - {{establishment}}</h3>
+                    <p class="text-sm text-gray-600">{{debutDate}} - {{endDate}}</p>
+                    <p class="text-gray-700">{{description}}</p>
+                </div>
+            {{/each}}
+            </div>
+        </div>
+        {{/if}}
+
+
+        {{#if skills}}
+        <div class="mt-4">
+            <h2 class="text-xl font-semibold text-gray-800">Compétences</h2>
+            <ul class="flex flex-wrap gap-2 mt-2">
+                {{#each skills}}
+                    <li class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm">{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+
+        {{#if languages}}
+        <div class="mt-4">
+            <h2 class="text-xl font-semibold text-gray-800">Langues</h2>
+            <ul class="flex flex-wrap gap-2 mt-2">
+                {{#each languages}}
+                    <li class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm">{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+
+        {{#if hobbies}}
+        <div class="mt-4">
+            <h2 class="text-xl font-semibold text-gray-800">Centre d'intérêts</h2>
+            <ul class="flex flex-wrap gap-2 mt-2">
+                {{#each hobbies}}
+                    <li class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm">{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+    </div>
+</body>
+</html>
