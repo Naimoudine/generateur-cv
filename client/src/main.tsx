@@ -8,6 +8,7 @@ import Resumes from "./pages/Resumes/Resumes.tsx";
 import EditResume from "./pages/Resumes/EditResume.tsx";
 import Letters from "./pages/Letters/Letters.tsx";
 import EditLetter from "./pages/Letters/EditLetter.tsx";
+import { FormDataProvider } from "./hooks/useFormData.tsx";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <FormDataProvider>
+      <RouterProvider router={router} />
+    </FormDataProvider>
   </StrictMode>
 );

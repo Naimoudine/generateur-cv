@@ -1,10 +1,10 @@
-import { FormDataType } from "@/components/Form/ResumeForm";
+import { FormDataType } from "@/hooks/useFormData";
 
 type Props = {
-  userData: FormDataType;
+  formData: FormDataType;
 };
 
-export default function OriginalTemplate({ userData }: Props) {
+export default function OriginalTemplate({ formData }: Props) {
   const {
     personal,
     profile,
@@ -13,7 +13,8 @@ export default function OriginalTemplate({ userData }: Props) {
     skills,
     languages,
     hobbies,
-  } = userData;
+  } = formData;
+
   return (
     <div className="bg-white p-1 p-4">
       <h1 className="text-3xl font-bold text-blue-600">
@@ -29,7 +30,7 @@ export default function OriginalTemplate({ userData }: Props) {
         <strong>Adresse:</strong> {personal?.address}
       </p>
       <p className="text-sm text-gray-700">
-        <strong>Ville:</strong> {personal?.city}
+        <strong>Ville:</strong> {personal?.city} {personal?.zip}
       </p>
       <div className="mt-4">
         <p className="text-gray-700">

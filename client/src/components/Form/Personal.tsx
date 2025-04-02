@@ -56,7 +56,14 @@ export default function Personal({ personal, onChange }: Props) {
             onChange("personal", e.target.name, e.target.value)
           }
         />
-        <Input label="Téléphone" id="phone" type="phone" />
+        <Input
+          label="Téléphone"
+          id="phone"
+          type="phone"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            onChange("personal", e.target.name, e.target.value)
+          }
+        />
       </div>
       <Input
         label="Adresse"
