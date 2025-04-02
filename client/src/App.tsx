@@ -3,14 +3,14 @@ import Navbar from "./components/nav/Navbar";
 
 function App() {
   return (
-    <>
+    <div className="flex flex-col h-full w-full">
       <header className="mb-8">
         <Navbar />
       </header>
-      <main className="px-4">
+      <main className="flex-grow overflow-hidden">
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }
 

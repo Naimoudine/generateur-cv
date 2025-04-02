@@ -9,13 +9,15 @@
 <body class="bg-gray-100">
     <div class="max-w-2xl mx-auto bg-white p-4 rounded-lg">
         <h1 class="text-3xl font-bold text-blue-600">{{personal.firstname}} {{personal.lastname}}</h1>
-        <p class="text-sm text-gray-700"><strong>Email:</strong> {{personal.email}}</p>
-        <p class="text-sm text-gray-700"><strong>Téléphone:</strong> {{personal.phone}}</p>
-        <p class="text-sm text-gray-700"><strong>Adresse:</strong> {{personal.address}}</p>
-        <p class="text-sm text-gray-700"><strong>Ville:</strong> {{personal.city}}</p>
+        <div class="my-4">
+            <p class="text-sm text-gray-700"><strong>Email:</strong> {{personal.email}}</p>
+            <p class="text-sm text-gray-700"><strong>Téléphone:</strong> {{personal.phone}}</p>
+            <p class="text-sm text-gray-700"><strong>Adresse:</strong> {{personal.address}}</p>
+            <p class="text-sm text-gray-700"><strong>Ville:</strong> {{personal.city}}</p>
+        </div>
         <div class="mt-4">
             <p class="text-gray-700"><strong>{{personal.jobTitle}}</strong></p>
-            <p class="text-gray-700">{{personal.profile}}</p>
+            <p class="text-gray-700 mt-2">{{personal.profile}}</p>
         </div>
         <div class="mt-4">
             <h2 class="text-lg text-gray-800">Expérience professionnelle</h2>

@@ -44,7 +44,7 @@ export default function ResumeForm() {
   };
 
   return (
-    <form className="w-1/2 px-4">
+    <form className="w-1/2 px-4 overflow-x-hidden">
       {sections.map((section) => (
         <div key={section.id} className="border-b border-gray-200 py-4 px-8">
           <article className="flex items-center justify-between">
