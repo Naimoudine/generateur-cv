@@ -1,4 +1,4 @@
-import { ExperienceType } from "@/pages/Resumes/ResumeForm";
+import { ExperienceType } from "@/components/Form/ResumeForm";
 import Input from "../Input";
 import { Button } from "../ui/button";
 import { Pen } from "lucide-react";

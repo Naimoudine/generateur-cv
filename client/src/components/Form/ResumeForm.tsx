@@ -9,6 +9,11 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useRef, useState } from "react";
 
+type Props = {
+  handleForm: (userData: FormDataType) => Promise<void>;
+  handleGetUserData: (userData: FormDataType) => void;
+};
+
 export type EducationType = {
   id?: number | undefined;
   title: string;
@@ -58,7 +63,7 @@ const sections = [
   { id: "hobbies", title: "Centre d'intérêts" },
 ];
 
-export default function ResumeForm() {
+export default function ResumeForm({ handleForm, handleGetUserData }: Props) {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormDataType>({
     personal: {
@@ -226,7 +231,7 @@ export default function ResumeForm() {
   };
 
   return (
-    <form className="w-1/2">
+    <form className="w-1/2 px-4">
       {sections.map((section) => (
         <div key={section.id} className="border-b border-gray-200 py-4 px-8">
           <article className="flex items-center justify-between">
@@ -284,13 +289,14 @@ export default function ResumeForm() {
           )}
         </div>
       ))}
-      <div className="mt-4 flex justify-end">
+      <div className="mt-4 flex justify-end mb-4">
         <Button
           className="w-fit"
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            console.log(formData);
+            handleForm(formData);
+            handleGetUserData(formData);
           }}
         >
           submit

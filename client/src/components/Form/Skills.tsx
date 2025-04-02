@@ -1,4 +1,4 @@
-import { FormDataType } from "@/pages/Resumes/ResumeForm";
+import { FormDataType } from "@/components/Form/ResumeForm";
 import { Button } from "../ui/button";
 import { Trash } from "lucide-react";
 import Input from "../Input";

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import Input from "../Input";
-import { FormDataType } from "@/pages/Resumes/ResumeForm";
+import { FormDataType } from "@/components/Form/ResumeForm";
 import { Button } from "../ui/button";
 import { Trash } from "lucide-react";
 
