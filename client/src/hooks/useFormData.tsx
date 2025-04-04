@@ -48,11 +48,13 @@ interface FormDataContextType {
   education: EducationType;
   saveEducation: () => void;
   editEducation: (id: number) => void;
+  deleteEducation: (id: number) => void;
   experienceId: number | null;
   experience: ExperienceType;
   handleExperienceChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   saveExperience: () => void;
   editExperience: (id: number) => void;
+  deleteExperience: (id: number) => void;
 }
 
 export const FormDataContext = createContext<FormDataContextType | undefined>(
@@ -158,6 +160,15 @@ export const FormDataProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const deleteEducation = (id: number) => {
+    setFormData((prevForm) => ({
+      ...prevForm,
+      educations: id
+        ? prevForm.educations.filter((exp) => exp.id !== id)
+        : [...prevForm.educations],
+    }));
+  };
+
   const handleExperienceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -202,6 +213,15 @@ export const FormDataProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const deleteExperience = (id: number) => {
+    setFormData((prevForm) => ({
+      ...prevForm,
+      experiences: id
+        ? prevForm.experiences.filter((exp) => exp.id !== id)
+        : [...prevForm.experiences],
+    }));
+  };
+
   const formDataCtx: FormDataContextType = {
     formData,
     setFormData,
@@ -211,11 +231,13 @@ export const FormDataProvider = ({ children }: { children: ReactNode }) => {
     handleEducationChange,
     saveEducation,
     editEducation,
+    deleteEducation,
     experienceId,
     experience,
     handleExperienceChange,
     saveExperience,
     editExperience,
+    deleteExperience,
   };
 
   return (

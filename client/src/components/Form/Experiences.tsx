@@ -1,7 +1,7 @@
-import { ExperienceType } from "@/hooks/useFormData";
+import { ExperienceType, useFormData } from "@/hooks/useFormData";
 import Input from "../Input";
 import { Button } from "../ui/button";
-import { Pen } from "lucide-react";
+import { Pen, Trash } from "lucide-react";
 
 type Props = {
   experiences: ExperienceType[];
@@ -19,24 +19,38 @@ export default function Experiences({
   editExperience,
   experienceId,
 }: Props) {
+  const { deleteExperience } = useFormData();
+
   return (
     <div className="flex flex-col gap-4 mt-2">
-      {experiences.map((el, i) => (
+      {experiences.map((el) => (
         <div
-          key={i}
-          className="flex items-center justify-between px-4 py-2 border-2 border-gray-600 rounded-sm"
+          key={el.id}
+          className="flex items-center justify-between px-4 py-2 border-2 border-gray-400 rounded-sm"
         >
           <p>{el.job}</p>
-          <Button
-            type="button"
-            size="sm"
-            variant="ghost"
-            onClick={() => {
-              if (el.id) editExperience(el.id);
-            }}
-          >
-            <Pen />
-          </Button>
+          <div className="flex items-center gap-4">
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                if (el.id) deleteExperience(el.id);
+              }}
+            >
+              <Trash />
+            </Button>
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                if (el.id) editExperience(el.id);
+              }}
+            >
+              <Pen />
+            </Button>
+          </div>
         </div>
       ))}
       <div className="flex flex-col gap-4 mt-2">

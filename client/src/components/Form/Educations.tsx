@@ -1,7 +1,7 @@
-import { EducationType } from "@/hooks/useFormData";
+import { EducationType, useFormData } from "@/hooks/useFormData";
 import Input from "../Input";
 import { Button } from "../ui/button";
-import { Pen } from "lucide-react";
+import { Pen, Trash } from "lucide-react";
 
 type Props = {
   educations: EducationType[];
@@ -20,6 +20,8 @@ export default function Educations({
   editEducation,
   editId,
 }: Props) {
+  const { deleteEducation } = useFormData();
+
   return (
     <div className="flex flex-col gap-4 mt-2">
       {educations.map((el) => (
@@ -28,16 +30,29 @@ export default function Educations({
           className="flex items-center justify-between px-4 py-2 border-2 border-gray-600 rounded-sm"
         >
           <p>{el.title}</p>
-          <Button
-            type="button"
-            size="sm"
-            variant="ghost"
-            onClick={() => {
-              if (el.id) editEducation(el.id);
-            }}
-          >
-            <Pen />
-          </Button>
+
+          <div className="flex items-center gap-4">
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                if (el.id) deleteEducation(el.id);
+              }}
+            >
+              <Trash />
+            </Button>
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                if (el.id) editEducation(el.id);
+              }}
+            >
+              <Pen />
+            </Button>
+          </div>
         </div>
       ))}
       <div className="flex flex-col gap-4 mt-2">
