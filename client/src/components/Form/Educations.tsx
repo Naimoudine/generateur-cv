@@ -1,4 +1,4 @@
-import { EducationType } from "@/components/Form/ResumeForm";
+import { EducationType } from "@/hooks/useFormData";
 import Input from "../Input";
 import { Button } from "../ui/button";
 import { Pen } from "lucide-react";
@@ -79,7 +79,13 @@ export default function Educations({
             onChange={handleEducationChange}
           />
         </div>
-        <Input label="Description" id="description" textarea />
+        <Input
+          label="Description"
+          id="description"
+          textarea
+          value={education?.description}
+          onChange={handleEducationChange}
+        />
         <Button type="button" onClick={saveEducation}>
           {editId ? "Editer" : "Ajouter"}
         </Button>

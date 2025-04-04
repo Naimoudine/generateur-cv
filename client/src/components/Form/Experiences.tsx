@@ -1,4 +1,4 @@
-import { ExperienceType } from "@/components/Form/ResumeForm";
+import { ExperienceType } from "@/hooks/useFormData";
 import Input from "../Input";
 import { Button } from "../ui/button";
 import { Pen } from "lucide-react";
@@ -79,7 +79,13 @@ export default function Experiences({
             onChange={onChange}
           />
         </div>
-        <Input label="Description" id="description" textarea />
+        <Input
+          label="Description"
+          id="description"
+          textarea
+          value={experience.description}
+          onChange={onChange}
+        />
         <Button type="button" onClick={saveExperience}>
           {experienceId ? "Editer" : "Ajouter"}
         </Button>
