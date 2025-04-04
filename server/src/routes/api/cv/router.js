@@ -15,7 +15,6 @@ router.post("/generate", async (req, res) => {
     "templates",
     `${templateName}.html`
   );
-  console.log(templatePath);
 
   if (!fs.existsSync(templatePath)) {
     res.status(404).json({ error: "Template non trouvé" });
@@ -40,7 +39,9 @@ router.post("/generate", async (req, res) => {
 
   await browser.close();
 
-  res.send({ pdfUrl: `http://localhost:5000/${path.basename(pdfPath)}` });
+  // res.send({ pdfUrl: `http://localhost:5000/${path.basename(pdfPath)}` });
+  res.setHeader("Content-Type", "application/pdf");
+  res.download(pdfPath);
 });
 
 module.exports = router;
