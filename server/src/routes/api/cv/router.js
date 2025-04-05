@@ -6,6 +6,10 @@ const puppeter = require("puppeteer");
 
 const router = express.Router();
 
+handlebars.registerHelper("or", function (a, b) {
+  return a || b;
+});
+
 router.post("/generate", async (req, res) => {
   const { templateName, userData } = req.body;
 

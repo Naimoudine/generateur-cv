@@ -8,17 +8,33 @@
 </head>
 <body class="bg-gray-100">
     <div class="max-w-2xl mx-auto bg-white p-4 rounded-lg">
-        <h1 class="text-3xl font-bold text-blue-600">{{personal.firstname}} {{personal.lastname}}</h1>
+        {{#if (or personal.firstname  personal.lastname)}}
+            <h1 class="text-3xl font-bold text-blue-600">{{personal.firstname}} {{personal.lastname}}</h1>
+        {{/if}}
         <div class="my-4">
+            {{#if personal.email}}
             <p class="text-sm text-gray-700"><strong>Email:</strong> {{personal.email}}</p>
+            {{/if}}
+            {{#if personal.phone}}
             <p class="text-sm text-gray-700"><strong>Téléphone:</strong> {{personal.phone}}</p>
+            {{/if}}
+            {{#if personal.address}}
             <p class="text-sm text-gray-700"><strong>Adresse:</strong> {{personal.address}}</p>
-            <p class="text-sm text-gray-700"><strong>Ville:</strong> {{personal.city}}</p>
+            {{/if}}
+            {{#if (or personal.city personal.zip)}}
+            <p class="text-sm text-gray-700"><strong>Ville:</strong> {{personal.city}} {{personal.zip}}</p>
+            {{/if}}
         </div>
         <div class="mt-4">
+            {{#if personal.jobTitle}}
             <p class="text-gray-700"><strong>{{personal.jobTitle}}</strong></p>
+            {{/if}}
+            {{#if personal.profile}}
             <p class="text-gray-700 mt-2">{{personal.profile}}</p>
+            {{/if}}
         </div>
+
+        {{#if experience.length}}
         <div class="mt-4">
             <h2 class="text-lg text-gray-800">Expérience professionnelle</h2>
             <div class="border-l-4 border-blue-500 pl-4 mt-2">
@@ -35,7 +51,9 @@
                 </div>
             </div>
         </div>
+        {{/if}}
 
+        {{#if educations.length}}
         <div class="mt-4">
             <h2 class="text-lg font-semibold text-gray-800">Formation</h2>
             <div class="border-l-4 border-blue-500 pl-4 mt-2">
@@ -52,7 +70,9 @@
                 </div>
             </div>
         </div>
+        {{/if}}
 
+        {{#if skills.length}}
         <div class="mt-4">
             <h2 class="text-lg font-semibold text-gray-800">Compétences</h2>
             <ul class="flex flex-wrap gap-2 mt-2">
@@ -61,7 +81,9 @@
                 {{/each}}
             </ul>
         </div>
+        {{/if}}
 
+        {{#if languages.length}}
         <div class="mt-4">
             <h2 class="font-semibold text-gray-800">Langues</h2>
             <ul class="flex flex-wrap gap-2 mt-2">
@@ -70,15 +92,18 @@
                 {{/each}}
             </ul>
         </div>
+        {{/if}}
 
+        {{#if hobbies.length}}
         <div class="mt-4">
             <h2 class="font-semibold text-gray-800">Centre d'intérêts</h2>
             <ul class="flex flex-wrap gap-2 mt-2">
                 {{#each hobbies}}
-                    <li class="bg-blue-100 px-3 py-1 rounded-full text-sm">{{this}}</li>
+                    <li class="bg-blue-600 px-3 py-1 rounded-full text-sm"><p>{{this}}</p></li>
                 {{/each}}
             </ul>
         </div>
+        {{/if}}
     </div>
 </body>
 </html>

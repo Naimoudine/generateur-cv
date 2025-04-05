@@ -50,7 +50,9 @@ export default function OriginalTemplate({ formData }: Props) {
             <p className="text-lg text-gray-700">{personal?.jobTitle}</p>
           )}
           {profile && (
-            <p className="text-gray-700 mt-2 whitespace">{profile}</p>
+            <p className="text-gray-700 mt-2 max-w-full break-words">
+              {profile}
+            </p>
           )}
         </div>
       </div>
@@ -74,7 +76,7 @@ export default function OriginalTemplate({ formData }: Props) {
                         {experience?.debutDate} {experience?.endDate}
                       </p>
                     )}
-                    <p className="text-sm text-gray-700 whitespace-pre">
+                    <p className="text-sm text-gray-700 break-words">
                       {experience?.description}
                     </p>
                   </li>
@@ -102,7 +104,7 @@ export default function OriginalTemplate({ formData }: Props) {
                         {education?.debutDate} {education?.endDate}
                       </p>
                     )}
-                    <p className="text-gray-700 whitespace-pre">
+                    <p className="text-gray-700 break-words">
                       {education?.description}
                     </p>
                   </li>
