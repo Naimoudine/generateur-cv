@@ -7,7 +7,7 @@ function App() {
       <header className="mb-8">
         <Navbar />
       </header>
-      <main className="flex-grow overflow-hidden">
+      <main className="flex-grow overflow-hidden px-4">
         <Outlet />
       </main>
     </div>

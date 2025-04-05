@@ -2,9 +2,17 @@ import { FormDataType } from "@/hooks/useFormData";
 
 type Props = {
   formData: FormDataType;
+  height?: string;
+  width?: string;
+  className?: string;
 };
 
-export default function OriginalTemplate({ formData }: Props) {
+export default function OriginalTemplate({
+  formData,
+  height = "auto",
+  width = "auto",
+  className,
+}: Props) {
   const {
     personal,
     profile,
@@ -16,7 +24,9 @@ export default function OriginalTemplate({ formData }: Props) {
   } = formData;
 
   return (
-    <div className="bg-white p-1 p-8 h-[1123px] rounded-sm break-after-page overflow-hidden">
+    <div
+      className={`bg-white p-1 p-8 ${height} ${width} rounded-sm break-after-page overflow-hidden ${className}`}
+    >
       {(personal.firstname || personal.lastname) && (
         <h1 className="text-4xl mb-2 font-bold text-blue-600">
           {personal?.firstname} {personal?.lastname}

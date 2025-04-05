@@ -50,7 +50,7 @@ export default function EditResume() {
     <div className="flex gap-4 h-full">
       <ResumeForm generateCv={fetchGenerateCv} loading={loading} />
       <div className="w-1/2 bg-gray-200 p-4 h-full overflow-y-scroll">
-        <TemplateComponent formData={formData} />
+        <TemplateComponent formData={formData} height="h-[1123px]" />
       </div>
     </div>
   );

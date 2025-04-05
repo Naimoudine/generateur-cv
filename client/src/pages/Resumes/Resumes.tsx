@@ -1,4 +1,6 @@
 import CustomBtn from "@/components/CustomBtn";
+import { templates } from "@/components/templates/templates";
+import { useFormData } from "@/hooks/useFormData";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -30,6 +32,9 @@ export default function Resumes() {
     });
   };
 
+  const TemplateComponent = templates["template1"];
+  const { formData } = useFormData();
+
   return (
     <section>
       <h2 className="mb-8">Curriculum Vitae</h2>
@@ -46,7 +51,13 @@ export default function Resumes() {
         {cvs.map((cv) => (
           <article>
             <Link to={`${cv.id}/edit`}>
-              <div className="h-56 w-40 shadow-xl rounded-sm mb-2" />
+              {/* <div className="h-56 w-40 shadow-xl rounded-sm mb-2" /> */}
+              <TemplateComponent
+                formData={formData}
+                height="h-56"
+                width="w-40"
+                className="shadow-xl rounded-sm mb-2"
+              />
             </Link>
             <input
               type="text"
