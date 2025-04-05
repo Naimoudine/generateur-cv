@@ -13,7 +13,7 @@ export default function EditResume() {
   const fetchGenerateCv = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/api/cv/generate`, {
+      const response = await fetch(`${import.meta.env.API_URL}/cv/generate`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ templateName: "original", userData: formData }),

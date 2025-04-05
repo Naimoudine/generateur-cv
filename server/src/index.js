@@ -7,7 +7,7 @@ const connectDb = require("./config/db");
 const apiRoutes = require("./routes/api/routes");
 
 dotenv.config();
-// connectDb();
+connectDb();
 
 const app = express();
 
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "pdfs")));
 
 app.use("/api", apiRoutes);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.info(`Server is listenning on port http://localhost:${PORT}`);
