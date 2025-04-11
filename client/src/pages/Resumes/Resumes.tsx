@@ -1,12 +1,14 @@
+import { saveCv } from "@/api";
 import CustomBtn from "@/components/CustomBtn";
 import { templates } from "@/components/templates/templates";
-import { useFormData } from "@/hooks/useFormData";
-import { useState } from "react";
+import { FormDataType, useFormData } from "@/hooks/useFormData";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export interface CV {
-  id: number;
-  title: string;
+  id?: number;
+  title?: string;
+  content?: FormDataType | null;
 }
 
 export default function Resumes() {
@@ -16,7 +18,7 @@ export default function Resumes() {
     if (cvs.length < 3) {
       setCvs((prevState) => [
         ...prevState,
-        { id: Math.random(), title: "New cv" },
+        { id: Math.random(), title: "New cv", content: null },
       ]);
     }
   };
@@ -35,6 +37,24 @@ export default function Resumes() {
   const TemplateComponent = templates["template1"];
   const { formData } = useFormData();
 
+  useEffect(() => {
+    if (cvs.length) {
+      const lastAdded = cvs[cvs.length - 1];
+
+      const save = async () => {
+        try {
+          if (lastAdded) {
+            await saveCv(lastAdded);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      save();
+    }
+  }, [cvs]);
+
   return (
     <section>
       <h2 className="mb-8">Curriculum Vitae</h2>
@@ -49,7 +69,7 @@ export default function Resumes() {
           Créer un nouveau cv +
         </CustomBtn>
         {cvs.map((cv) => (
-          <article>
+          <article key={cv.id}>
             <Link to={`${cv.id}/edit`}>
               {/* <div className="h-56 w-40 shadow-xl rounded-sm mb-2" /> */}
               <TemplateComponent
