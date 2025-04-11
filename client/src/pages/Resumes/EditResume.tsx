@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ResumeForm from "../../components/Form/ResumeForm";
 import { templates } from "../../components/templates/templates";
 import { useFormData } from "@/hooks/useFormData";
+import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { getCvById, saveCv } from "@/api";
+import { CV } from "./Resumes";
 
 export default function EditResume() {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { formData } = useFormData();
+  const { formData, setFormData } = useFormData();
+  const formDataRef = useRef(formData);
+
+  const cv = useLoaderData() as CV;
 
   const TemplateComponent = templates["template1"];
 
@@ -45,14 +51,55 @@ export default function EditResume() {
   };
 
   useEffect(() => {
-    console.log(loading);
-  }, [loading]);
+    if (cv?.content) {
+      setFormData(cv.content);
+    }
+  }, [cv]);
+
+  useEffect(() => {
+    formDataRef.current = formData;
+  }, [formData]);
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        await saveCv({ ...cv, content: formDataRef.current });
+      } catch (error) {
+        console.error("Auto-save failed:", error);
+      }
+    }, 300000);
+
+    return () => clearInterval(interval);
+  }, [cv.id]);
+
   return (
     <div className="flex gap-4 h-full">
-      <ResumeForm generateCv={fetchGenerateCv} loading={loading} />
+      <ResumeForm
+        generateCv={fetchGenerateCv}
+        loading={loading}
+        cv={cv}
+        ref={formDataRef}
+      />
       <div className="w-1/2 bg-gray-200 p-4 h-full overflow-y-scroll">
         <TemplateComponent formData={formData} height="h-[1123px]" />
       </div>
     </div>
   );
 }
+
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const { id } = params;
+
+  if (!id) {
+    throw new Response("Missing CV ID", { status: 400 });
+  }
+
+  const numericId = Number(id);
+
+  if (isNaN(numericId)) {
+    throw new Response("Invalid CV ID", { status: 400 });
+  }
+
+  const cv = await getCvById(numericId);
+  return cv;
+};

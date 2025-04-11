@@ -1,9 +1,9 @@
-import { saveCv } from "@/api";
+import { getAllCv, saveCv } from "@/api";
 import CustomBtn from "@/components/CustomBtn";
 import { templates } from "@/components/templates/templates";
-import { FormDataType, useFormData } from "@/hooks/useFormData";
+import { FormDataType } from "@/hooks/useFormData";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 export interface CV {
   id?: number;
@@ -13,6 +13,8 @@ export interface CV {
 
 export default function Resumes() {
   const [cvs, setCvs] = useState<CV[]>([]);
+
+  const fetchedCvs = useLoaderData() as CV[];
 
   const handleCreateCv = () => {
     if (cvs.length < 3) {
@@ -24,6 +26,7 @@ export default function Resumes() {
   };
 
   const handeUpdateCv = (cv: CV, e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("event", e.target.value);
     setCvs((prevState) => {
       const updateCvs = [...prevState];
       const currCvIndex = updateCvs.findIndex((c) => c.id === cv.id);
@@ -35,7 +38,12 @@ export default function Resumes() {
   };
 
   const TemplateComponent = templates["template1"];
-  const { formData } = useFormData();
+
+  useEffect(() => {
+    if (fetchedCvs.length) {
+      setCvs(fetchedCvs);
+    }
+  }, [fetchedCvs]);
 
   useEffect(() => {
     if (cvs.length) {
@@ -73,7 +81,7 @@ export default function Resumes() {
             <Link to={`${cv.id}/edit`}>
               {/* <div className="h-56 w-40 shadow-xl rounded-sm mb-2" /> */}
               <TemplateComponent
-                formData={formData}
+                formData={cv.content!}
                 height="h-56"
                 width="w-40"
                 className="shadow-xl rounded-sm mb-2"
@@ -92,3 +100,12 @@ export default function Resumes() {
     </section>
   );
 }
+
+export const loader = async () => {
+  try {
+    const allCv = await getAllCv();
+    return allCv;
+  } catch (error) {
+    console.error(error);
+  }
+};

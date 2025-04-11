@@ -4,38 +4,63 @@ const fs = require("fs");
 const handlebars = require("handlebars");
 const puppeteer = require("puppeteer");
 
-const saveCv = async (req, res) => {
+const getAllCv = async (req, res) => {
+  try {
+    let collection = await cvCollection.findOne({}, { myCvs: 1 });
+    if (!collection || !collection.myCvs || collection.myCvs.length === 0) {
+      return res.status(404).json({ message: "Aucun CV trouvé." });
+    }
+
+    return res.json(collection.myCvs);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getCvById = async (req, res) => {
   const id = req.params.id;
 
+  try {
+    let collection = await cvCollection.findOne(
+      { "myCvs.id": id },
+      { "myCvs.$": 1 }
+    );
+
+    if (!collection || !collection.myCvs || collection.myCvs.length === 0) {
+      return res.status(404).json({ message: "Aucun CV trouvé." });
+    }
+
+    return res.json(collection.myCvs[0]);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const saveCv = async (req, res) => {
+  const id = req.params.id;
+  console.log(req.body.content);
   try {
     const newCv = {
       id,
       title: req.body.title,
       content: req.body.content,
     };
-
     let collection = await cvCollection.findOne();
-
     if (!collection) {
       collection = new cvCollection({
         myCvs: [newCv],
       });
-
       await collection.save();
       return res.status(201).json({ message: "Le cv a bien été crée." });
     }
-
-    const cvIndex = collection.myCvs.findIndex((cv) => cv.id === id);
-
+    const cvIndex = collection.myCvs.findIndex((cv) => cv.id === Number(id));
     if (cvIndex === -1) {
       collection.myCvs.push(newCv);
       await collection.save();
       return res.status(201).json({ message: "Le cv a bien été crée." });
     }
-
     collection.myCvs[cvIndex].title = newCv.title;
     collection.myCvs[cvIndex].content = newCv.content;
-
     await collection.save();
     return res.status(200).json({ message: "Le cv a bien été mis à jour" });
   } catch (error) {
@@ -82,4 +107,4 @@ const generateCv = async (req, res) => {
   }
 };
 
-module.exports = { saveCv, generateCv };
+module.exports = { getAllCv, getCvById, saveCv, generateCv };

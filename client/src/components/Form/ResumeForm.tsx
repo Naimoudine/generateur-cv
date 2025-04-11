@@ -6,10 +6,12 @@ import Personal from "@/components/Form/Personal";
 import Profil from "@/components/Form/Profil";
 import Skills from "@/components/Form/Skills";
 import { Button } from "@/components/ui/button";
-import { useFormData } from "@/hooks/useFormData";
+import { FormDataType, useFormData } from "@/hooks/useFormData";
 import { ChevronDown, ChevronUp, Download } from "lucide-react";
 import { useState } from "react";
 import SvgSpinners180Ring from "../ui/Spinner";
+import { saveCv } from "@/api";
+import { CV } from "@/pages/Resumes/Resumes";
 
 const sections = [
   { id: "personal", title: "Information personnelles" },
@@ -24,9 +26,11 @@ const sections = [
 type Props = {
   generateCv: () => Promise<null | undefined>;
   loading: boolean;
+  cv: CV;
+  ref: React.RefObject<FormDataType>;
 };
 
-export default function ResumeForm({ generateCv, loading }: Props) {
+export default function ResumeForm({ generateCv, loading, cv, ref }: Props) {
   const [openSection, setOpenSection] = useState<string | null>(null);
 
   const {
@@ -115,6 +119,7 @@ export default function ResumeForm({ generateCv, loading }: Props) {
           disabled={loading}
           onClick={(e) => {
             e.preventDefault();
+            saveCv({ ...cv, content: ref.current });
             generateCv();
           }}
         >

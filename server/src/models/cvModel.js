@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const cvSchema = new mongoose.Schema(
   {
-    personnal: {
+    personal: {
       firstname: { type: String },
       lastname: { type: String },
       jobTitle: { type: String },

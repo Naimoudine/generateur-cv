@@ -1,8 +1,5 @@
 const express = require("express");
-const path = require("path");
-const fs = require("fs");
 const handlebars = require("handlebars");
-const puppeter = require("puppeteer");
 
 const router = express.Router();
 
@@ -10,10 +7,16 @@ handlebars.registerHelper("or", function (a, b) {
   return a || b;
 });
 
-const { saveCv, generateCv } = require("../../../controllers/cvController");
+const {
+  saveCv,
+  generateCv,
+  getAllCv,
+  getCvById,
+} = require("../../../controllers/cvController");
 
 router.post("/generate", generateCv);
-
 router.post("/:id", saveCv);
+router.get("/", getAllCv);
+router.get("/:id", getCvById);
 
 module.exports = router;
